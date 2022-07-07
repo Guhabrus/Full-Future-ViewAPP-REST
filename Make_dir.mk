@@ -1,0 +1,1 @@
+COMPONENTS += src/main.cpp
