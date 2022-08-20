@@ -2,6 +2,10 @@
 #define CONFIG_H
 
 #include <string>
+#include <iostream>
+#include <vector>
+
+#include "Observer/Observer.h"
 
 enum ERROR_CONFIG
 {
@@ -21,14 +25,39 @@ class Config
     std::string _login_bd;           ///< логин к базе данных
     std::string _password_bd;        ///< пароль к базе данных
     std::string _bd_name;            ///< имя базы данных
-    std::string _json_conf;                 ///< использование настроечного файла вместо настроек командной строки
+    // bool _json_conf;                 ///< использование настроечного файла вместо настроек командной строки
+
+    std::vector<Observer*>  _list_view;
 
 
     public:
 
-    // Config(): _host_name(), _port(), _login_bd(), _password_bd(){}
-    Config(int argc, const char* argv[]);
-    virtual ~Config(){};
+    /**
+     * @brief Construct a new Config object
+     * 
+     */
+    Config() = default;
+
+    /**
+     * @brief 
+     * 
+     * @param observ 
+     */
+    void connect(Observer* observ);
+
+    /**
+     * @brief 
+     * 
+     */
+    void notify();
+
+    /**
+     * @brief Get the Instanse object
+     * 
+     * @return Config 
+     */
+    static Config& getInstance();
+
 
     /**
      * @brief фнукция парсинга входого потока символов (настройки)
@@ -37,13 +66,38 @@ class Config
      * @param argv настроечные параметры //TODO БОП
      * @return ERROR_CONFIG 
      */
-    ERROR_CONFIG parse_line(int argc, const char* argv[]);
+    ERROR_CONFIG parse_line(int argc,  char** argv);
+
+    /**
+     * @brief 
+     * 
+     * @param path 
+     * @return ERROR_CONFIG 
+     */
+    ERROR_CONFIG parse_json(std::string path);
 
     /**
      * @brief Get the settings object
      * выводит ip хоста, порт подключения, логин к базе данных, пароль к базе данных
      */
     void print_settings();    
+
+
+    /**
+     * @brief Get the port object
+     * 
+     * @return unsigned short 
+     */
+    unsigned short get_port();//{return (unsigned short)std::stoi(Config::getInstance()._port);}
+
+    /**
+     * @brief 
+     * 
+     * @return std::string 
+     */
+    std::string get_IP();
+
+    virtual ~Config(){};
 
 };
 

@@ -33,7 +33,8 @@ link_directories("/usr/local/lib")
 
 
 add_executable(${EXAMPLE_BINARY} src/main.cpp 
-                                src/config/config.cpp)
+                                src/config/config.cpp
+                                src/config/Observer/Observer.cpp)
 
 
 target_include_directories(${EXAMPLE_BINARY} PRIVATE "${CMAKE_BINARY_DIR}")
