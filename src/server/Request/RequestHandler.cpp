@@ -25,7 +25,8 @@ void RequestHendler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::
     response.setContentType("application/json");
     std::ostream& out = response.send();
     print_debug("request = %s\n", request.getURI().c_str());
-    out<<"Got\n";
+    
+    out<<"Helloe "<< form.get("name")<<"\n";
     out.flush();
 
 }
