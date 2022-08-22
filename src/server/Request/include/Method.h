@@ -82,9 +82,11 @@ int string_to_enum_int(const char* const tokens[], int max,const char* value)
 
 
 
-DECLARE_ENUM(METHOD,  // enum class LogLevel
-            GET,     // LogLevel::Alert
-            POST  // LogLevel::Critical
+DECLARE_ENUM(REST_METHOD,  // enum class LogLevel
+            PUT,     // LogLevel::Alert
+            GET,  // LogLevel::Critical
+            POST,
+            DELETE
             );
 
 
