@@ -22,7 +22,8 @@
 #include "Poco/Net/HTMLForm.h"
 #include "Poco/JSON/Stringifier.h"
 
-
+//TODO  удалить //*****************TEMP******************
+#include "RequestObject/ModelRequest/ModelRequest.h"
 
 RequestHendler::RequestHendler(const std::string &html_requestt):prvt_html_requestt(html_requestt)
 {
@@ -38,6 +39,7 @@ void RequestHendler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::
     response.setChunkedTransferEncoding(true);
     response.setContentType("application/json");
     std::ostream& out = response.send();
+
     print_debug("request = %s\n", request.getURI().c_str());
 
 
@@ -46,8 +48,11 @@ void RequestHendler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::
     switch (string_to_enum(REST_METHOD, request.getMethod().c_str()))
     {
     case REST_METHOD::GET:
+    {
         this->get_method_p->send_request();
-    break;
+        ModelRequest m;
+        m.send_request();
+    }break;
     
     case REST_METHOD::POST:
 

@@ -13,6 +13,18 @@
 #ifndef OBJECTBASE_H
 #define OBJECTBASE_H
 
+class ObjectBase
+{
+    private:
 
+    public:
+        /**
+         * @brief 
+         * 
+         * @return true 
+         * @return false 
+         */
+        virtual bool send_request() = 0;
+};
 
 #endif
