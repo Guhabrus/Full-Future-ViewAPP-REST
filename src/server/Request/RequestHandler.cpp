@@ -43,15 +43,17 @@ void RequestHendler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::
     print_debug("request = %s\n", request.getURI().c_str());
 
 
-
+    Poco::Net::HTTPRequest req(Poco::Net::HTTPRequest::HTTP_GET, "/home/maksim/Myfolder/Magistr/VKR/Project/mogo_1/index.html");
+    
 
     switch (string_to_enum(REST_METHOD, request.getMethod().c_str()))
     {
     case REST_METHOD::GET:
     {
-        this->get_method_p->send_request();
-        ModelRequest m;
-        m.send_request();
+        // this->get_method_p->send_request();
+        // ModelRequest m;
+        // m.send_request();
+        //this->get_method_p->send_request(new ModelRequest(data));
     }break;
     
     case REST_METHOD::POST:

@@ -33,39 +33,37 @@
 #define PORT_MODEL    8083
 
 
-uint16_t message[32] = {1,2,3,4,5,6,7,8,9,10};
-uint16_t buf[sizeof(message)];
 
 
 
 bool ModelRequest::send_request(){
 
-    int sock_desk = socket(AF_INET, SOCK_STREAM, 0);
+    // int sock_desk = socket(AF_INET, SOCK_STREAM, 0);
 
-    if(sock_desk<0){
-        print_error("Error create socket\n");
-        return false;
-    }
+    // if(sock_desk<0){
+    //     print_error("Error create socket\n");
+    //     return false;
+    // }
 
 
-    struct sockaddr_in addr; memset(&addr, 0, sizeof(addr));
+    // struct sockaddr_in addr; memset(&addr, 0, sizeof(addr));
 
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(PORT_MODEL); // или любой другой порт...
-    addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    // addr.sin_family = AF_INET;
+    // addr.sin_port = htons(PORT_MODEL); // или любой другой порт...
+    // addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
     
-    if(connect(sock_desk,(struct sockaddr *)&addr, sizeof(addr) ) < 0)
-    {
-        print_error("Not connetc to model\n");
-        return false;
-    }
+    // if(connect(sock_desk,(struct sockaddr *)&addr, sizeof(addr) ) < 0)
+    // {
+    //     print_error("Not connetc to model\n");
+    //     return false;
+    // }
 
-    send(sock_desk, message, sizeof(message), 0);
-    recv(sock_desk, buf, 2, 0);
+    // send(sock_desk, message, sizeof(message), 0);
+    // recv(sock_desk, buf, 2, 0);
     
-    print_debug("kvit = %d\n", buf[0]);
+    // print_debug("kvit = %d\n", buf[0]);
     
-    close(sock_desk);
+    // close(sock_desk);
     
 
 
