@@ -16,10 +16,13 @@
 #include "../ObjectBase/ObjectBase.h"
 
 
+//******************STL***************************
+#include <string>
+
 class ModelRequest:public ObjectBase
 {
     private:
-
+    const char* _request;
     public:
         /**
          * @brief 
@@ -28,6 +31,13 @@ class ModelRequest:public ObjectBase
          * @return false 
          */
         bool send_request();
+
+        /**
+         * @brief Construct a new Model Request object
+         * 
+         * @param request 
+         */
+        ModelRequest(const char* requiest);
 };
 
 

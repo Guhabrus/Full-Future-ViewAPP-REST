@@ -35,35 +35,46 @@
 
 
 
+char message[] = "Hellow server";
+char buf[1014] = {0};
+
+ModelRequest::ModelRequest(const char* requiest):_request(requiest){
+        print_debug("Contructor of ModelRequest\n");
+    }
+
 
 bool ModelRequest::send_request(){
 
-    // int sock_desk = socket(AF_INET, SOCK_STREAM, 0);
+    int sock_desk = socket(AF_INET, SOCK_STREAM, 0);
 
-    // if(sock_desk<0){
-    //     print_error("Error create socket\n");
-    //     return false;
-    // }
+    if(sock_desk<0){
+        print_error("Error create socket\n");
+        return false;
+    }
 
 
-    // struct sockaddr_in addr; memset(&addr, 0, sizeof(addr));
+    struct sockaddr_in sockect_s; memset(&sockect_s, 0, sizeof(sockect_s));
 
-    // addr.sin_family = AF_INET;
-    // addr.sin_port = htons(PORT_MODEL); // или любой другой порт...
-    // addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    sockect_s.sin_family = AF_INET;
+    sockect_s.sin_port = htons(PORT_MODEL); // или любой другой порт...
+    sockect_s.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
     
-    // if(connect(sock_desk,(struct sockaddr *)&addr, sizeof(addr) ) < 0)
-    // {
-    //     print_error("Not connetc to model\n");
-    //     return false;
-    // }
+    if(connect(sock_desk,(struct sockaddr *)&sockect_s, sizeof(sockect_s) ) < 0)
+    {
+        print_error("Not connetc to model\n");
+        return false;
+    }
 
-    // send(sock_desk, message, sizeof(message), 0);
-    // recv(sock_desk, buf, 2, 0);
+    if(send(sock_desk, this->_request, sizeof(message), 0) == -1)
+        print_error("Errrrrrrrr\n");
+    size_t size_data =  recv(sock_desk, buf, 1024, 0);
+
     
-    // print_debug("kvit = %d\n", buf[0]);
+        
     
-    // close(sock_desk);
+    print_debug("kvit = %s size_data = %ld\n", buf, size_data);
+    
+    close(sock_desk);
     
 
 

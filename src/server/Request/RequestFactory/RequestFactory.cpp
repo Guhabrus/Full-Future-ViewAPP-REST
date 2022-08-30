@@ -20,7 +20,7 @@
 Poco::Net::HTTPRequestHandler* RequestFactory::createRequestHandler(const Poco::Net::HTTPServerRequest& request)
 {
     print_debug(" req URL = %s\n", request.getURI().c_str());
-    if("/person"==request.getURI())         //TODO сделать проверку
+    if("/person"==request.getURI() && 0)         //TODO сделать проверку
     {
         print_debug("HTML\n");
         return NULL;

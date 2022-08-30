@@ -14,18 +14,67 @@
 #ifndef POST_H
 #define POST_H
 
-class Post
-{
-    private:
 
+//******************8*STL****************************
+#include <string>
+
+//********************POCO**************************
+#include <Poco/Net/PartHandler.h>
+#include <Poco/Net/MessageHeader.h>
+
+class Post :public Poco::Net::PartHandler
+{
     public:
+
+        /**
+         * @brief Construct a new Post object
+         * 
+         */
+        Post();
+
+        /**
+         * @brief Get the length object
+         * 
+         * @return int 
+         */
+        int get_length();
+
+        /**
+         * @brief Get the type object
+         * 
+         * @return std::string 
+         */
+        std::string get_type();
+
+        /**
+         * @brief Get the name object
+         * 
+         * @return std::string 
+         */
+        std::string get_name();
+
+        /**
+         * @brief Get the filename object
+         * 
+         * @return std::string 
+         */
+        std::string get_filename();
+
         /**
          * @brief 
          * 
-         * @return true 
-         * @return false 
+         * @param header 
+         * @param stream 
          */
-        bool do_post();
+        void handlePart(const Poco::Net::MessageHeader& header,  std::istream& stream);
+
+
+    private:
+        
+        int _length;
+        std::string _type;
+        std::string _name;
+        std::string _fileName;
 };
 
 #endif

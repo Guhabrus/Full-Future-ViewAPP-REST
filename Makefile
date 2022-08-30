@@ -6,7 +6,7 @@ TARGET = KMA_server
 
 CC = g++
 
-CFLAGS += -Wall -Wextra -Werror -std=c++14
+CFLAGS += -Wall -Wextra -Werror -std=c++17
 
 LIBS += -lboost_program_options -lpthread 
 LIBS += -lPocoNet -lPocoUtil -lPocoJSON -lPocoData -lPocoFoundation

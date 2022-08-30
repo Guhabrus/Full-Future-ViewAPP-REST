@@ -13,12 +13,16 @@
 #ifndef GET_H
 #define GET_H
 
+//********************LOCAL****************************
+
+class ObjectBase;
+
 class Get
 {
     private:
 
     public:
-        bool send_request();
+        bool send_request(ObjectBase* object_p);
 
 };
 
