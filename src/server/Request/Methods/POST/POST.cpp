@@ -58,3 +58,9 @@ std::string Post::get_name(){
 std::string Post::get_filename(){
     return this->_fileName;
 }
+
+
+// void Post::send_response(Poco::Net::HTTPServerResponse &response)
+// {
+
+// }

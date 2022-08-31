@@ -17,8 +17,7 @@
 #include "Poco/Net/HTTPServerRequest.h"
 
 
-//**************************My**************************
-#include "../RequestHandler.h"
+
 
 
 class RequestFactory: public Poco::Net::HTTPRequestHandlerFactory

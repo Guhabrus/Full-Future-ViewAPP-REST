@@ -21,6 +21,9 @@
 //********************POCO**************************
 #include <Poco/Net/PartHandler.h>
 #include <Poco/Net/MessageHeader.h>
+#include <Poco/Net/HTTPServerResponse.h>
+
+
 
 class Post :public Poco::Net::PartHandler
 {
@@ -68,6 +71,13 @@ class Post :public Poco::Net::PartHandler
          */
         void handlePart(const Poco::Net::MessageHeader& header,  std::istream& stream);
 
+        /**
+         * @brief 
+         * 
+         * @param response 
+         */
+        void send_response(Poco::Net::HTTPServerResponse &response);
+
 
     private:
         
@@ -75,6 +85,7 @@ class Post :public Poco::Net::PartHandler
         std::string _type;
         std::string _name;
         std::string _fileName;
+        #define _METHOD "POST"
 };
 
 #endif

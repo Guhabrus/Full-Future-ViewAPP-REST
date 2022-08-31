@@ -8,3 +8,4 @@ CFILES += src/server/Request/Methods/GET/GET.cpp
 CFILES += src/server/Request/Methods/DELETE/DELETE.cpp
 CFILES += src/server/Request/Methods/POST/POST.cpp
 CFILES += src/server/Request/Methods/PUT/PUT.cpp
+CFILES += src/server/Request/RequestHandlerFront/RequestHandlerFront.cpp
