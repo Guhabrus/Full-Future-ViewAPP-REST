@@ -17,13 +17,18 @@
 
 //******************8*STL****************************
 #include <string>
-
+#include <fstream>
 //********************POCO**************************
 #include <Poco/Net/PartHandler.h>
 #include <Poco/Net/MessageHeader.h>
 #include <Poco/Net/HTTPServerResponse.h>
 
 
+//********************LOCAL*************************
+#include "../../include/Error.h"
+
+
+class ObjectBase;
 
 class Post :public Poco::Net::PartHandler
 {
@@ -71,20 +76,22 @@ class Post :public Poco::Net::PartHandler
          */
         void handlePart(const Poco::Net::MessageHeader& header,  std::istream& stream);
 
+
         /**
          * @brief 
          * 
-         * @param response 
+         * @param obj_p 
+         * @return ERROR_HANDLER 
          */
-        void send_response(Poco::Net::HTTPServerResponse &response);
+        ERROR_HANDLER send_to(ObjectBase* obj_p);
 
 
     private:
         
         int _length;
-        std::string _type;
-        std::string _name;
-        std::string _fileName;
+        std::string     _type;
+        std::string     _name;
+        std::string     _fileName;
         #define _METHOD "POST"
 };
 

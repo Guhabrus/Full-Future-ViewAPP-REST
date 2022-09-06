@@ -38,12 +38,12 @@
 char message[] = "Hellow server";
 char buf[1014] = {0};
 
-ModelRequest::ModelRequest(const char* requiest):_request(requiest){
+ModelRequest::ModelRequest(){
         print_debug("Contructor of ModelRequest\n");
-    }
+}
 
 
-bool ModelRequest::send_request(){
+bool ModelRequest::send_request(){      //TODO добавить блоки try и cache 
 
     int sock_desk = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -59,6 +59,8 @@ bool ModelRequest::send_request(){
     sockect_s.sin_port = htons(PORT_MODEL); // или любой другой порт...
     sockect_s.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
     
+
+
     if(connect(sock_desk,(struct sockaddr *)&sockect_s, sizeof(sockect_s) ) < 0)
     {
         print_error("Not connetc to model\n");

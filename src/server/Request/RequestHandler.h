@@ -43,12 +43,14 @@ class RequestHendler:public Poco::Net::HTTPRequestHandler
          * @param resp --> ответ сервера
          */
         void handleRequest(Poco::Net::HTTPServerRequest &req, Poco::Net::HTTPServerResponse &resp);
-
+        
         /**
          * @brief Destroy the Request Hendler object
          * 
          */
         ~RequestHendler();
+
+        
 
     private:
         std::string prvt_html_requestt;                                                                 ///< 
@@ -56,6 +58,13 @@ class RequestHendler:public Poco::Net::HTTPRequestHandler
         Post*       post_method_p;
         Put*        put_method_p;
         Delete*     delete_method_p;
+
+        /**
+         * @brief 
+         * 
+         * @param request 
+         */
+        void post_handl(Poco::Net::HTTPServerRequest &request);
 
 };
 

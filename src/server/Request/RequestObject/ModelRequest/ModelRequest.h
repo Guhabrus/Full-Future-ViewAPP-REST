@@ -34,10 +34,8 @@ class ModelRequest:public ObjectBase
 
         /**
          * @brief Construct a new Model Request object
-         * 
-         * @param request 
          */
-        ModelRequest(const char* requiest);
+        ModelRequest();
 };
 
 

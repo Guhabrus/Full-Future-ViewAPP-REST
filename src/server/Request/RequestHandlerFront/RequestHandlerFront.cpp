@@ -32,7 +32,7 @@ void RequestHandlerFront::handleRequest([[maybe_unused]] Poco::Net::HTTPServerRe
     
     print_debug("URL = %s", request.getURI().c_str());
     try{
-        file.open("/home/maksim/Myfolder/Magistr/VKR/prototip/PocoAngularTodo/www/index.html", std::ifstream::in);
+        file.open("/home/maksim/Myfolder/Magistr/VKR/prototip/mogo_1/index.html", std::ifstream::in);
     }
     catch(...){
 
@@ -55,7 +55,7 @@ void RequestHandlerFront::handleRequest([[maybe_unused]] Poco::Net::HTTPServerRe
 
     std::cout<<http_s<<std::endl;
     respons.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-    respons.setContentType("application/xml");
+    respons.setContentType("application/html");
     respons.setChunkedTransferEncoding(false);
     respons.setContentLength(http_s.length());
     std::ostream& out = respons.send();
