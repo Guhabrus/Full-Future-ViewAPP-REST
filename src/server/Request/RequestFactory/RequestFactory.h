@@ -9,15 +9,15 @@
  * 
  */
 
-
+#ifndef REQUESTFACTORY_H
+#define REQUESTFACTORY_H
 //***************************Poco***********************
 
 #include "Poco/Net/HTTPRequestHandlerFactory.h"
 #include "Poco/Net/HTTPServerRequest.h"
 
 
-//**************************My**************************
-#include "../RequestHandler.h"
+
 
 
 class RequestFactory: public Poco::Net::HTTPRequestHandlerFactory
@@ -43,3 +43,5 @@ class RequestFactory: public Poco::Net::HTTPRequestHandlerFactory
 
         std::string prvt_html_requestt;                     ///< 
 };
+
+#endif

@@ -9,25 +9,31 @@
  * 
  */
 
-
+#ifndef REQUESTHANDKER_H
+#define REQUESTHANDKER_H
 //*******************Poco*********************
 #include "Poco/Net/HTTPRequestHandlerFactory.h"
 #include "Poco/Net/HTTPServerRequest.h"
 #include "Poco/Net/HTTPRequestHandler.h"
 #include "Poco/Net/HTTPResponse.h"
 #include "Poco/Net/HTTPServerResponse.h"
-#include "Poco/Net/HTMLForm.h"
-#include "Poco/JSON/Stringifier.h"
 
-enum Metod
-{
-    GET,
-    POST
-};
+
+class Get;
+class Post;
+class Put;
+class Delete;
+
+
 class RequestHendler:public Poco::Net::HTTPRequestHandler
 {
     public:
-        RequestHendler(const std::string &html_requestt): prvt_html_requestt(html_requestt){}
+    /**
+     * @brief Construct a new Request Hendler object
+     * 
+     * @param html_requestt 
+     */
+        RequestHendler(const std::string &html_requestt);
     
 
         /**
@@ -37,11 +43,34 @@ class RequestHendler:public Poco::Net::HTTPRequestHandler
          * @param resp --> ответ сервера
          */
         void handleRequest(Poco::Net::HTTPServerRequest &req, Poco::Net::HTTPServerResponse &resp);
+        
+        /**
+         * @brief Destroy the Request Hendler object
+         * 
+         */
+        ~RequestHendler();
+
+        
 
     private:
-        
-        std::string prvt_html_requestt;
+        std::string prvt_html_requestt;                                                                 ///< 
+        Get*        get_method_p;
+        Post*       post_method_p;
+        Put*        put_method_p;
+        Delete*     delete_method_p;
 
+        /**
+         * @brief 
+         * 
+         * @param request 
+         */
+        void post_handl(Poco::Net::HTTPServerRequest &request);
 
-       
 };
+
+
+
+
+
+
+#endif
