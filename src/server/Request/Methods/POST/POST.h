@@ -86,13 +86,29 @@ class Post :public Poco::Net::PartHandler
         ERROR_HANDLER send_to(ObjectBase* obj_p);
 
 
+        /**
+         * @brief Set the lenth object
+         * 
+         * @param size_data 
+         */
+        void set_lenth(std::streamsize size_data);
+
+
+        /**
+         * @brief Destroy the Post object
+         * 
+         */
+        ~Post();
+
     private:
         
-        int _length;
+        std::streamsize _length = 73545;
         std::string     _type;
         std::string     _name;
         std::string     _fileName;
         #define _METHOD "POST"
+
+        char *buff; //TODO убрать костыль
 };
 
 #endif

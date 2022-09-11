@@ -16,7 +16,7 @@
 
 
 
-bool Get::send_request(ObjectBase* object_p){
-    object_p->send_request();                               
-    return true;
-}
+// bool Get::send_request(ObjectBase* object_p){
+//     // object_p->send_request();                               
+//     return true;
+// }

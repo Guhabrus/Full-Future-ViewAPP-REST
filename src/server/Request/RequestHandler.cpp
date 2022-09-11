@@ -47,11 +47,13 @@ void RequestHendler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::
 {
     Poco::Util::Application& app = Poco::Util::Application::instance();
 	app.logger().information("Request from " + request.clientAddress().toString());
-    
+
     response.setChunkedTransferEncoding(true);
+
     response.setContentType("text/html");
-    std::ostream& ostr = response.send();
     
+    std::ostream& ostr = response.send();
+
     switch (string_to_enum(REST_METHOD, request.getMethod().c_str()))
     {
         case REST_METHOD::GET:{    }break;
@@ -77,9 +79,11 @@ void RequestHendler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::
 
 void RequestHendler::post_handl(Poco::Net::HTTPServerRequest &request)
 {
+    
     Poco::Net::HTMLForm form(request, request.stream(), *this->post_method_p);
-
     this->post_method_p->send_to(new ModelRequest);
+    
+    
 }
 
 

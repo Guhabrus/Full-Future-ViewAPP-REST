@@ -24,13 +24,16 @@ class ModelRequest:public ObjectBase
     private:
     const char* _request;
     public:
+        
+
         /**
          * @brief 
          * 
+         * @param data 
          * @return true 
          * @return false 
          */
-        bool send_request();
+        bool send_request(const char* data,const size_t size_data);
 
         /**
          * @brief Construct a new Model Request object

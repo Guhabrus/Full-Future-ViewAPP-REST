@@ -25,7 +25,7 @@
 #include "../../../../debug/debug.h"
 
 Post::Post():_length(0){
-
+	this->buff = new char [this->_length];
 }
 
 
@@ -42,31 +42,20 @@ void Post::handlePart(const Poco::Net::MessageHeader& header, std::istream& stre
 		Poco::Net::MessageHeader::splitParameters(header["Content-Disposition"], disp, params);
 		this->_name 	= params.get("name", "(unnamed)");
 		this->_fileName = params.get("filename", "(unnamed)");
-		
-		
+			
 	}
-	Poco::CountingInputStream istr(stream);
-	this->_length = istr.chars();
-	print_debug("leng = %d\n", this->_length);
-	// Poco::CountingInputStream istr(stream);
-		
-
-	char* buffer = new char [1024];
-	stream.read(buffer, sizeof(char) * 1024);
-
-
-
-
-
-	// Poco::NullOutputStream ostr;
-	// Poco::StreamCopier::copyStream(istr, is);
+	
+	try
+	{
+		stream.read(this->buff, sizeof(this->buff) );
+	}
+	catch(...)
+	{
+		print_error("Errror read stream\n");
+	}
 	
 	
-
-
-	delete buffer;
-		
-        
+		    
 }
 
 
@@ -87,16 +76,24 @@ std::string Post::get_filename(){
     return this->_fileName;
 }
 
+void Post::set_lenth(std::streamsize size_file){
+	this->_length = size_file;
+}
 
 ERROR_HANDLER Post::send_to(ObjectBase* obj_p){
 	
-	if(!obj_p->send_request()){
+	
+
+	if(!obj_p->send_request(this->buff, this->_length)){
 		return ERROR_HANDLER::ERROR_SEND;
 	}
 
 
 	return ERROR_HANDLER::SUCCES;
+}
 
-	
-
+Post::~Post(){
+	if(this->buff){
+		delete[] this->buff;
+	}
 }

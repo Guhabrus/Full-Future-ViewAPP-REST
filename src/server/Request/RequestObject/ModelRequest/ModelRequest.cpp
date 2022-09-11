@@ -35,7 +35,7 @@
 
 
 
-char message[] = "Hellow server";
+
 char buf[1014] = {0};
 
 ModelRequest::ModelRequest(){
@@ -43,7 +43,7 @@ ModelRequest::ModelRequest(){
 }
 
 
-bool ModelRequest::send_request(){      //TODO добавить блоки try и cache 
+bool ModelRequest::send_request(const char* data,const size_t size_data){      //TODO добавить блоки try и cache 
 
     int sock_desk = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -67,18 +67,21 @@ bool ModelRequest::send_request(){      //TODO добавить блоки try �
         return false;
     }
 
-    if(send(sock_desk, this->_request, sizeof(message), 0) == -1)
-        print_error("Errrrrrrrr\n");
-    size_t size_data =  recv(sock_desk, buf, 1024, 0);
-
-    
+    try
+    {
+        if(send(sock_desk, data, size_data, 0) == -1)
+            print_error("Errrrrrrrr\n");
+    }
+    catch(...)
+    {
+        return false;
+    }
         
-    
-    print_debug("kvit = %s size_data = %ld\n", buf, size_data);
+    size_t size_data_receive =  recv(sock_desk, buf, 1024, 0);
+
+    print_debug("kvit = %s size_data = %ld\n", buf, size_data_receive);
     
     close(sock_desk);
     
-
-
     return true;
 }
