@@ -1,1 +1,1 @@
-./build/KMA_server --host=127.0.0.1 --port=8081 --login=sddd --password=Kukusale8691 --database=guhab
+./build/KMA_server --host=localhost --port=8081 --login=sddd --password=Kukusale8691 --database=guhab

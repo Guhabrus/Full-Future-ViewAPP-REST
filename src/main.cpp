@@ -25,28 +25,43 @@ int main(int argc, char** argv)
 #include <fstream>
 
 
-char buf_[1024];
+char buf_[2024];
 
 
 int main()
 {
     std::ifstream in;
+    std::string line;
 
-    in.open("image.bin", std::ios::binary|std::ios::in);
-   
-    in.read(buf_, sizeof(buf_));
+    in.open("/home/maksim/Myfolder/Magistr/VKR/Project/Server/src/JsonFile/Info.json", std::ifstream::in);
 
     
 
+    if(!in.is_open()){
+        printf("ccc\n");
+    }
+    else{
+        printf("sdc\n");
+    }
+    while (std::getline(in, line))
+    {
+        printf("line = %s\n", line.c_str());
+    }
 
     in.close();
+    
 
-    std::ofstream out("image2.bin", std::ios::binary|std::ios::out);
+    
+
+    printf("%s\n", line.c_str());
+    // in.close();
+
+    // std::ofstream out("image2.bin", std::ios::binary|std::ios::out);
 
 
-    out.write(buf_, sizeof(buf_));
+    // out.write(buf_, sizeof(buf_));
 
-    out.close();
+    // out.close();
 
     // FILE* in;
     // in = fopen("../image.bin","rb");

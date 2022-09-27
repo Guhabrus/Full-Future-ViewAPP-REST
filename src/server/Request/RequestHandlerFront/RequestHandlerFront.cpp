@@ -16,51 +16,70 @@
 #include "../../../debug/debug.h"
 
 //**************************POCO**************************************
-
+#include <Poco/Net/HTMLForm.h>
+#include <Poco/JSON/Array.h>
 //**************************STL***************************************
 #include <fstream>
+#include <iostream>
 
-RequestHandlerFront::RequestHandlerFront(const std::string &html_requestt): _html_requestt(html_requestt)
+RequestHandlerInfo::RequestHandlerInfo(const std::string &html_requestt):Observer(), _html_requestt(html_requestt)
 {
-
+    this->update();
 }
 
-#include <iostream>
-void RequestHandlerFront::handleRequest([[maybe_unused]] Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &respons)
+
+void RequestHandlerInfo::update(){
+    this->json_info = this->readJson("/home/maksim/Myfolder/Magistr/VKR/Project/Server/src/JsonFile/Info.json");
+}
+
+std::string RequestHandlerInfo::readJson(const char* path){
+   
+    std::ifstream in;
+    std::string line, json_info;
+    
+    in.open(path, std::ifstream::in);
+
+
+    if(!in.is_open()){
+        print_error("Don t open the Info.json file\n");
+        return "{\"status\" :\"500\"}";
+    }
+    
+    while (std::getline(in, line))
+    {
+        json_info.append(line + "\n");
+    }
+
+    try
+    {
+        in.close();
+    }
+    catch(const std::exception& e)
+    {
+        print_error("%s\n", e.what());
+    }
+    
+    return json_info;
+    
+}
+
+
+
+void RequestHandlerInfo::handleRequest([[maybe_unused]] Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &respons)
 {
-    std::ifstream file;
-    
-    print_debug("URL = %s", request.getURI().c_str());
-    try{
-        file.open("/home/maksim/Myfolder/Magistr/VKR/prototip/mogo_1/index.html", std::ifstream::in);
-    }
-    catch(...){
+    Poco::Net::HTMLForm html_request(request, request.stream());
 
-    }
-
-    if(!file.is_open()){
-        respons.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_FOUND);
-        respons.send();
-        return;
-    }
-
-    std::string http_s = "";
-    while(!file.eof()){
-        std::string tmp;
-        std::getline(file, tmp);
-        http_s += (tmp + "\n");
-    }
-
-    file.close();
-
-    std::cout<<http_s<<std::endl;
     respons.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-    respons.setContentType("application/html");
-    respons.setChunkedTransferEncoding(false);
-    respons.setContentLength(http_s.length());
+
+    respons.setChunkedTransferEncoding(true);
+
+    respons.setContentType("application/json");
+
     std::ostream& out = respons.send();
-    out<< http_s <<std::flush;
     
+    out<<this->json_info;  
+
+    out.flush();  
 }
 
 

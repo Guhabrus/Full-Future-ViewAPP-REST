@@ -18,7 +18,11 @@
 #include <Poco/Net/HTTPServerRequest.h>
 #include <Poco/Net/HTTPServerResponse.h>
 
-class RequestHandlerFront : public Poco::Net::HTTPRequestHandler
+//************************Local****************************
+#include "../../../config/Observer/Observer.h"
+
+
+class RequestHandlerInfo : public Poco::Net::HTTPRequestHandler, public Observer
 {
     public:
     
@@ -27,7 +31,7 @@ class RequestHandlerFront : public Poco::Net::HTTPRequestHandler
      * 
      * @param html_requestt 
      */
-        RequestHandlerFront(const std::string &html_requestt);
+        RequestHandlerInfo(const std::string &html_requestt);
 
         /**
          * @brief 
@@ -37,15 +41,29 @@ class RequestHandlerFront : public Poco::Net::HTTPRequestHandler
          */
         void handleRequest([[maybe_unused]] Poco::Net::HTTPServerRequest &req, Poco::Net::HTTPServerResponse &resp);
 
+        /**
+         * @brief 
+         * 
+         * @param path 
+         * @return std::string 
+         */
+        std::string readJson(const char *path);
+        
+        /**
+         * @brief 
+         * 
+         */
+        void update();
 
         /**
          * @brief Destroy the Request Handker Front object
          * 
          */
-        ~RequestHandlerFront() = default;
+        ~RequestHandlerInfo() = default;
 
         private:
         std::string _html_requestt;
+        std::string json_info;
 };
 
 #endif
